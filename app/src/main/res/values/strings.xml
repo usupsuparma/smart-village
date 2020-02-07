@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">SimdesApp</string>
+
+    <!--RIWAYAT SAKIT-->
+    <string name="namapasien">NIK Pasien</string>
+    <string name="penyakitpasien">Penyakit Pasien</string>
+    <string name="tanggalsakit">20 August 2019</string>
+
+    <string name="simpanriwayatsakit">simpanRiwayatSakit</string>
+    <string name="editriwayatsakit">editRiwayatSakit</string>
+    <string name="deleteriwayatsakit">deteleRiwayatSakit</string>
+    <string name="updateriwayatsakit">updateRiwayatSakit</string>
+
+    <!--JADWAL RONDA-->
+    <string name="namapetugas">Nama Petugas</string>
+    <string name="jadwalpetugas">Jadwal Petugas</string>
+
+    <string name="simpanjadwalronda">simpanJadwalRonda</string>
+    <string name="editjadwalronda">editJadwalRonda</string>
+    <string name="deletejadwalronda">deleteJadwalRonda</string>
+    <string name="updatejadwalronda">updateJadwalRonda</string>
+
+    <!--JADWAL POSYANDU-->
+    <string name="namabidan">Tanggal Posyandu</string>
+    <string name="waktuyandu">Waktu Posyandu</string>
+    <string name="jadwalbidan">Tempat Posyandu</string>
+
+    <string name="simpanjadwalposyandu">simpanJadwalPosyandu</string>
+    <string name="updatejadwalposyandu">updateJadwalPosyandu</string>
+    <string name="editjadwalposyandu">editJadwalPosyandu</string>
+    <string name="deletejadwalposyandu">deleteJadwalPosyandu</string>
+
+    <!--KEADAAN DARURAT-->
+    <string name="apayangterjadi">Apa yang terjadi?</string>
+
+    <!--PROFIL-->
+    <string name="nik">NIK</string>
+    <string name="nama">Nama</string>
+    <string name="tanggallahir">Tanggal Lahir</string>
+    <string name="jeniskelamin">Jenis Kelamin</string>
+    <string name="alamat">Alamat</string>
+    <string name="agama">Agama</string>
+    <string name="status">Status</string>
+    <string name="pekerjaan">Pekerjaan</string>
+
+</resources>

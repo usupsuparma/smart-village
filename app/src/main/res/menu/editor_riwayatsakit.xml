@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/simpanRiwayatSakit"
+        android:title="@string/simpanriwayatsakit"
+        android:icon="@drawable/checkbig"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/updateRiwayatSakit"
+        android:title="@string/updateriwayatsakit"
+        android:icon="@drawable/refreshwhite"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/editRiwayatSakit"
+        android:title="@string/editriwayatsakit"
+        android:icon="@drawable/editwhite"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/deleteRiwayatSakit"
+        android:title="@string/deleteriwayatsakit"
+        android:icon="@drawable/deletewhite"
+        app:showAsAction="always"/>
+
+</menu>

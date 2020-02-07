@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.editor.EditorJadwalPosyanduActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/jadwalbidan"
+            android:hint="@string/jadwalbidan"
+            android:fontFamily="@font/regular"
+            android:textSize="16sp"
+            android:textColorHint="@color/gray50"
+            android:inputType="textCapSentences"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="Autofill"/>
+
+        <EditText
+            android:id="@+id/namabidan"
+            android:layout_below="@+id/jadwalbidan"
+            android:hint="@string/namabidan"
+            android:textColorHint="@color/gray50"
+            android:fontFamily="@font/regular"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/waktuyandu"
+            android:layout_below="@+id/namabidan"
+            android:hint="@string/waktuyandu"
+            android:textColorHint="@color/gray50"
+            android:fontFamily="@font/regular"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

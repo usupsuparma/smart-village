@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/simpanJadwalPosyandu"
+        android:title="@string/simpanjadwalposyandu"
+        android:icon="@drawable/checkbig"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/updateJadwalPosyandu"
+        android:title="@string/updatejadwalposyandu"
+        android:icon="@drawable/refreshwhite"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/editJadwalPosyandu"
+        android:title="@string/editjadwalposyandu"
+        android:icon="@drawable/editwhite"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/deleteJadwalPosyandu"
+        android:title="@string/deletejadwalposyandu"
+        android:icon="@drawable/deletewhite"
+        app:showAsAction="always"/>
+
+</menu>

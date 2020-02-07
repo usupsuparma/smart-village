@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/simpanJadwalRonda"
+        android:title="@string/simpanjadwalronda"
+        android:icon="@drawable/checkbig"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/updateJadwalRonda"
+        android:title="@string/updatejadwalronda"
+        android:icon="@drawable/refreshwhite"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/editJadwalRonda"
+        android:title="@string/editjadwalronda"
+        android:icon="@drawable/editwhite"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/deleteJadwalRonda"
+        android:title="@string/deletejadwalronda"
+        android:icon="@drawable/deletewhite"
+        app:showAsAction="always"/>
+
+</menu>
