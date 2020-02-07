@@ -75,7 +75,6 @@ public class SuhuActivity extends AppCompatActivity {
                                 for (int i =0; i < jsonArray.length(); i++){
 
                                     JSONObject object = jsonArray.getJSONObject(i);
-
                                     String strPhtanah = object.getString("ph").trim();
                                     String strkelembaban = object.getString("ph").trim();
 //                                  String strWarnatanah = object.getString("warna").trim();
