@@ -27,18 +27,15 @@ public class MainPresenterRiwayatSakit {
             @Override
             public void onResponse(Call<List<RiwayatSakit>> call, Response<List<RiwayatSakit>> response) {
                 view.hideLoading();
-                Log.d("test", "onResponse: "+response);
                 if (response.isSuccessful()){
                     view.onGetResult(response.body());
                 } else {
                     view.onErrorLoading(response.message());
                 }
-                Log.d("testme", "onResponse: "+response.message());
             }
 
             @Override
             public void onFailure(Call<List<RiwayatSakit>> call, Throwable t) {
-                Log.d("testme", "onFailure: "+t);
                 view.hideLoading();
                 view.onErrorLoading(t.toString());
             }

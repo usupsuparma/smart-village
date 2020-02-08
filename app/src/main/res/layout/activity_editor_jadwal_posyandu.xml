@@ -15,19 +15,8 @@
         android:layout_marginTop="20dp">
 
         <EditText
-            android:id="@+id/jadwalbidan"
-            android:hint="@string/jadwalbidan"
-            android:fontFamily="@font/regular"
-            android:textSize="16sp"
-            android:textColorHint="@color/gray50"
-            android:inputType="textCapSentences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="Autofill"/>
-
-        <EditText
-            android:id="@+id/namabidan"
-            android:layout_below="@+id/jadwalbidan"
+            android:id="@+id/tanggal_posyandu"
+            android:layout_below="@+id/spinner_tempat_posyandu"
             android:hint="@string/namabidan"
             android:textColorHint="@color/gray50"
             android:fontFamily="@font/regular"
@@ -36,13 +25,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-            android:id="@+id/waktuyandu"
-            android:layout_below="@+id/namabidan"
+            android:id="@+id/waktu_posyandu"
+            android:layout_below="@+id/tanggal_posyandu"
             android:hint="@string/waktuyandu"
             android:textColorHint="@color/gray50"
             android:fontFamily="@font/regular"
             android:textSize="14sp"
             android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/spinner_tempat_posyandu"
+            android:layout_below="@+id/jadwalbidan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

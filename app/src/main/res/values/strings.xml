@@ -42,5 +42,12 @@
     <string name="agama">Agama</string>
     <string name="status">Status</string>
     <string name="pekerjaan">Pekerjaan</string>
+    
+    <string-array name="tempat_posyandu">
+        <item>Haurkunig I</item>
+        <item>Haurkunig II</item>
+        <item>Haurkunig III</item>
+        <item>Haurkunig IV</item>
+    </string-array>
 
 </resources>

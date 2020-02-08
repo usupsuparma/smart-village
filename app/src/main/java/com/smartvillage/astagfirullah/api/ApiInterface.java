@@ -71,9 +71,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("get_save_jadwalposyandu.php")
     Call<JadwalPosyandu> simpanJadwalPosyandu(
-            @Field("namabidan") String namabidan,
-            @Field("jadwalbidan") String jadwalbidan,
-            @Field("waktuyandu") String waktuyandu);
+            @Field("tanggalyandu") String tanggalYandu,
+            @Field("waktuyandu") String waktuyandu,
+            @Field("idtempatposyandu") int idTempatPosyandu
+            );
 
     @GET("get_data_jadwalposyandu.php")
     Call<List<JadwalPosyandu>> getJadwalPosyandu();
@@ -82,9 +83,10 @@ public interface ApiInterface {
     @POST("get_update_jadwalposyandu.php")
     Call<JadwalPosyandu> updateJadwalPosyandu(
             @Field("id") int id,
-            @Field("namabidan") String namabidan,
-            @Field("jadwalbidan") String jadwalbidan,
-            @Field("waktuyandu") String waktuyandu);
+            @Field("tanggal_posyandu") String tanggalPosyandu,
+            @Field("waktu_yandu") String waktuyandu,
+            @Field("id_jadwal_posyandu") int idJadwalPosyandu
+    );
 
     @FormUrlEncoded
     @POST("get_delete_jadwalposyandu.php")

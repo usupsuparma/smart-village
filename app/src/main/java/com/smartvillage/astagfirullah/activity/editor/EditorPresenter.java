@@ -1,5 +1,7 @@
 package com.smartvillage.astagfirullah.activity.editor;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.smartvillage.astagfirullah.api.ApiClient;
@@ -20,7 +22,7 @@ public class EditorPresenter {
         this.view = view;
     }
 
-//  RIWAYAT SAKIT SIMPAN    ========================================================================
+    //  RIWAYAT SAKIT SIMPAN    ========================================================================
     void simpanRiwayatSakit(final String namapasien, final String penyakitpasien) {
 
         view.showProgress();
@@ -32,7 +34,7 @@ public class EditorPresenter {
             public void onResponse(@NonNull Call<RiwayatSakit> call, @NonNull Response<RiwayatSakit> response) {
                 view.hideProgress();
 
-                if (response.isSuccessful() && response.body() != null ) {
+                if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
                     if (success) {
                         view.onRequestSuccess(response.body().getMessage());
@@ -50,7 +52,7 @@ public class EditorPresenter {
         });
     }
 
-//  RIWAYAT SAKIT UPDATE    ========================================================================
+    //  RIWAYAT SAKIT UPDATE    ========================================================================
     public void updateRiwayatSakit(int id, String namapasien, String penyakitpasien) {
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -78,7 +80,7 @@ public class EditorPresenter {
         });
     }
 
-//  RIWAYAT SAKIT DELETE    ========================================================================
+    //  RIWAYAT SAKIT DELETE    ========================================================================
     public void deleteRiwayatSakit(int id) {
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -86,9 +88,9 @@ public class EditorPresenter {
 
         call.enqueue(new Callback<RiwayatSakit>() {
             @Override
-            public void onResponse(@NonNull Call<RiwayatSakit> call, @NonNull Response<RiwayatSakit> response){
+            public void onResponse(@NonNull Call<RiwayatSakit> call, @NonNull Response<RiwayatSakit> response) {
                 view.hideProgress();
-                if (response.isSuccessful() && response.body() != null){
+                if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
                     if (success) {
                         view.onRequestSuccess(response.body().getMessage());
@@ -99,14 +101,14 @@ public class EditorPresenter {
             }
 
             @Override
-            public void onFailure(@NonNull Call<RiwayatSakit> call, @NonNull Throwable t){
+            public void onFailure(@NonNull Call<RiwayatSakit> call, @NonNull Throwable t) {
                 view.hideProgress();
                 view.onRequestError(t.getLocalizedMessage());
             }
         });
     }
 
-//  JADWAL RONDA SIMPAN     ========================================================================
+    //  JADWAL RONDA SIMPAN     ========================================================================
     void simpanJadwalRonda(final String namaPetugas, final String jadwalPetugas) {
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -164,7 +166,7 @@ public class EditorPresenter {
         });
     }
 
-//  JADWAL RONDA DELETE     ========================================================================
+    //  JADWAL RONDA DELETE     ========================================================================
     public void deleteJadwalRonda(int id) {
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
@@ -172,9 +174,9 @@ public class EditorPresenter {
 
         call.enqueue(new Callback<JadwalRonda>() {
             @Override
-            public void onResponse(@NonNull Call<JadwalRonda> call, @NonNull Response<JadwalRonda> response){
+            public void onResponse(@NonNull Call<JadwalRonda> call, @NonNull Response<JadwalRonda> response) {
                 view.hideProgress();
-                if (response.isSuccessful() && response.body() != null){
+                if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
                     if (success) {
                         view.onRequestSuccess(response.body().getMessage());
@@ -185,26 +187,26 @@ public class EditorPresenter {
             }
 
             @Override
-            public void onFailure(@NonNull Call<JadwalRonda> call, @NonNull Throwable t){
+            public void onFailure(@NonNull Call<JadwalRonda> call, @NonNull Throwable t) {
                 view.hideProgress();
                 view.onRequestError(t.getLocalizedMessage());
             }
         });
     }
 
-//  JADWAL POSYANDU SIMPAN  ========================================================================
-    void simpanJadwalPosyandu( String namabidan,  String jadwalbidan,   String waktuyandu) {
+    //  JADWAL POSYANDU SIMPAN  ========================================================================
+    void simpanJadwalPosyandu(String tanggalPosyandu, String waktuyandu, int idTempatPosyandu) {
 
         view.showProgress();
 
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<JadwalPosyandu> call = apiInterface.simpanJadwalPosyandu(namabidan, jadwalbidan, waktuyandu);
+        Call<JadwalPosyandu> call = apiInterface.simpanJadwalPosyandu(tanggalPosyandu, waktuyandu, idTempatPosyandu);
         call.enqueue(new Callback<JadwalPosyandu>() {
             @Override
             public void onResponse(@NonNull Call<JadwalPosyandu> call, @NonNull Response<JadwalPosyandu> response) {
                 view.hideProgress();
 
-                if (response.isSuccessful() && response.body() != null ) {
+                if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
                     if (success) {
                         view.onRequestSuccess(response.body().getMessage());
@@ -222,12 +224,12 @@ public class EditorPresenter {
         });
     }
 
-//  JADWAL POSYANDU UPDATE     ========================================================================
-    public void updateJadwalPosyandu(int id,  String namabidan,  String jadwalbidan,   String waktuyandu) {
+    //  JADWAL POSYANDU UPDATE     ========================================================================
+    public void updateJadwalPosyandu(int id, String tanggalPosyandu, String waktuyandu, int idJadwalPosyandu) {
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<JadwalPosyandu> call = apiInterface.updateJadwalPosyandu(id, namabidan, jadwalbidan, waktuyandu);
+        Call<JadwalPosyandu> call = apiInterface.updateJadwalPosyandu(id, tanggalPosyandu, waktuyandu, idJadwalPosyandu);
         call.enqueue(new Callback<JadwalPosyandu>() {
             @Override
             public void onResponse(@NonNull Call<JadwalPosyandu> call, @NonNull Response<JadwalPosyandu> response) {
@@ -258,9 +260,9 @@ public class EditorPresenter {
 
         call.enqueue(new Callback<JadwalPosyandu>() {
             @Override
-            public void onResponse(@NonNull Call<JadwalPosyandu> call, @NonNull Response<JadwalPosyandu> response){
+            public void onResponse(@NonNull Call<JadwalPosyandu> call, @NonNull Response<JadwalPosyandu> response) {
                 view.hideProgress();
-                if (response.isSuccessful() && response.body() != null){
+                if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
                     if (success) {
                         view.onRequestSuccess(response.body().getMessage());
@@ -271,7 +273,7 @@ public class EditorPresenter {
             }
 
             @Override
-            public void onFailure(@NonNull Call<JadwalPosyandu> call, @NonNull Throwable t){
+            public void onFailure(@NonNull Call<JadwalPosyandu> call, @NonNull Throwable t) {
                 view.hideProgress();
                 view.onRequestError(t.getLocalizedMessage());
             }

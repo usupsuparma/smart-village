@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,20 +18,17 @@ import com.smartvillage.astagfirullah.model.JadwalPosyandu;
 
 import java.util.List;
 
-public class JadwalPosyanduActivity extends AppCompatActivity implements MainViewJadwalPosyandu{
+public class JadwalPosyanduActivity extends AppCompatActivity implements MainViewJadwalPosyandu, MainAdapterJadwalPosyandu.ItemClickListener {
 
     private static final int INTENT_ADD = 100;
     private static final int INTENT_EDIT = 200;
 
-    FloatingActionButton addjadwalposyandu;
-    RecyclerView recyclerView;
-    SwipeRefreshLayout swipeRefreshLayout;
+    private FloatingActionButton addjadwalposyandu;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-    MainPresenterJadwalPosyandu presenter;
-    MainAdapterJadwalPosyandu adapter;
-    MainAdapterJadwalPosyandu.ItemClickListener itemClickListener;
-
-    List<JadwalPosyandu> jadwalPosyanduList;
+    private MainPresenterJadwalPosyandu presenter;
+    private MainAdapterJadwalPosyandu adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,9 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
 
         swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
         recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        adapter = new MainAdapterJadwalPosyandu(this::onItemClick);
+        recyclerView.setAdapter(adapter);
 
         addjadwalposyandu = findViewById(R.id.addjadwalposyandu);
         addjadwalposyandu.setOnClickListener(view ->
@@ -56,20 +56,6 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
                 () -> presenter.getData()
         );
 
-        itemClickListener = ((view, position) -> {
-            int id = jadwalPosyanduList.get(position).getId();
-            String namabidan = jadwalPosyanduList.get(position).getNamabidan();
-            String jadwalbidan = jadwalPosyanduList.get(position).getJadwalbidan();
-            String waktuyandu = jadwalPosyanduList.get(position).getWaktuyandu();
-
-            Intent intent = new Intent(this, EditorJadwalPosyanduActivity.class);
-
-            intent.putExtra("id", id);
-            intent.putExtra("namabidan", namabidan);
-            intent.putExtra("jadwalbidan", jadwalbidan);
-            intent.putExtra("waktuyandu", waktuyandu);
-            startActivityForResult(intent, INTENT_EDIT);
-        });
     }
 
     @Override
@@ -79,7 +65,9 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
         if (requestCode == INTENT_ADD && resultCode == RESULT_OK) {
             presenter.getData(); //reload data
         } else if (requestCode == INTENT_EDIT && resultCode == RESULT_OK) {
+            Log.d("testme", "onActivityResult: dari edit");
             presenter.getData(); //reload data
+
         }
     }
 
@@ -94,16 +82,30 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
     }
 
     @Override
-    public void onGetResult(List<JadwalPosyandu> jadwalPosyanduListl) {
-        adapter = new MainAdapterJadwalPosyandu(this, jadwalPosyanduListl, itemClickListener);
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
+    public void onGetResult(List<JadwalPosyandu> jadwalPosyanduList) {
+        Log.d("testme", "onGetResult: " + jadwalPosyanduList.size());
+        adapter.setJadwalPosyanduList(jadwalPosyanduList);
 
-        jadwalPosyanduList = jadwalPosyanduListl;
     }
 
     @Override
     public void onErrorLoading(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(JadwalPosyandu jadwalPosyandu, int position) {
+        int id = jadwalPosyandu.getId();
+        String jadwalbidan = jadwalPosyandu.getTglYandu();
+        String waktuyandu = jadwalPosyandu.getWaktuyandu();
+        int idTempatPosyandu = jadwalPosyandu.getIdPosyandu();
+
+        Intent intent = new Intent(this, EditorJadwalPosyanduActivity.class);
+
+        intent.putExtra(EditorJadwalPosyanduActivity.ID, id);
+        intent.putExtra(EditorJadwalPosyanduActivity.TANGGAL_POSYANDU, jadwalbidan);
+        intent.putExtra(EditorJadwalPosyanduActivity.WAKTU_POSYANDU, waktuyandu);
+        intent.putExtra(EditorJadwalPosyanduActivity.ID_JADWAL_POSYANDU, idTempatPosyandu);
+        startActivityForResult(intent, INTENT_EDIT);
     }
 }

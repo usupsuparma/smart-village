@@ -1,6 +1,5 @@
 package com.smartvillage.astagfirullah.activity.main;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,33 +12,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.smartvillage.astagfirullah.R;
 import com.smartvillage.astagfirullah.model.JadwalPosyandu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainAdapterJadwalPosyandu extends RecyclerView.Adapter<MainAdapterJadwalPosyandu.RecyclerViewAdapter> {
 
-    private Context context;
     private ItemClickListener itemClickListener;
     private List<JadwalPosyandu> jadwalPosyanduList;
 
-    public MainAdapterJadwalPosyandu(Context context, List<JadwalPosyandu> jadwalPosyanduList, MainAdapterJadwalPosyandu.ItemClickListener itemClickListener) {
-        this.context = context;
+    public MainAdapterJadwalPosyandu(MainAdapterJadwalPosyandu.ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
+        this.jadwalPosyanduList = new ArrayList<>();
+    }
+
+    public void setJadwalPosyanduList(List<JadwalPosyandu> jadwalPosyanduList) {
         this.jadwalPosyanduList = jadwalPosyanduList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public MainAdapterJadwalPosyandu.RecyclerViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_jadwalposyandu, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_jadwalposyandu, parent, false);
         return new MainAdapterJadwalPosyandu.RecyclerViewAdapter(view, itemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MainAdapterJadwalPosyandu.RecyclerViewAdapter holder, int position) {
         JadwalPosyandu jadwalPosyandu = jadwalPosyanduList.get(position);
-        holder.tv_namabidan.setText(jadwalPosyandu.getNamabidan());
-        holder.tv_jadwalbidan.setText(jadwalPosyandu.getJadwalbidan());
+        holder.jadwalPosyandu = jadwalPosyandu;
+        holder.tv_jadwalbidan.setText(jadwalPosyandu.getLokasi());
         holder.tv_waktuyandu.setText(jadwalPosyandu.getWaktuyandu());
+        holder.tanggalPosyandu.setText(jadwalPosyandu.getTglYandu());
     }
 
     @Override
@@ -49,16 +53,17 @@ public class MainAdapterJadwalPosyandu extends RecyclerView.Adapter<MainAdapterJ
 
     class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView tv_namabidan, tv_jadwalbidan, tv_waktuyandu;
-        CardView itemjadwalposyandu;
-        MainAdapterJadwalPosyandu.ItemClickListener itemClickListener;
+        final TextView tanggalPosyandu, tv_jadwalbidan, tv_waktuyandu;
+        final CardView itemjadwalposyandu;
+        final MainAdapterJadwalPosyandu.ItemClickListener itemClickListener;
+        JadwalPosyandu jadwalPosyandu;
 
         RecyclerViewAdapter(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
 
-            tv_namabidan = itemView.findViewById(R.id.namabidan);
+            tanggalPosyandu = itemView.findViewById(R.id.tanggal_posyandu);
             tv_jadwalbidan = itemView.findViewById(R.id.jadwalbidan);
-            tv_waktuyandu = itemView.findViewById(R.id.waktuyandu);
+            tv_waktuyandu = itemView.findViewById(R.id.waktu_posyandu);
             itemjadwalposyandu = itemView.findViewById(R.id.itemjadwalposyandu);
 
             this.itemClickListener = itemClickListener;
@@ -67,11 +72,11 @@ public class MainAdapterJadwalPosyandu extends RecyclerView.Adapter<MainAdapterJ
 
         @Override
         public void onClick(View view) {
-            itemClickListener.onItemClick(view, getAdapterPosition());
+            itemClickListener.onItemClick(jadwalPosyandu, getAdapterPosition());
         }
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(JadwalPosyandu jadwalPosyandu, int position);
     }
 }

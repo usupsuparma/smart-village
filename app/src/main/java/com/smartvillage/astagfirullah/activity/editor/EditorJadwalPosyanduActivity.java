@@ -3,33 +3,48 @@ package com.smartvillage.astagfirullah.activity.editor;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.smartvillage.astagfirullah.R;
 import com.smartvillage.astagfirullah.api.ApiInterface;
 
-import java.sql.Date;
-import java.sql.Time;
-
 public class EditorJadwalPosyanduActivity extends AppCompatActivity implements EditorView {
 
-    EditText et_namabidan, et_jadwalbidan, et_waktuyandu;
+    public static final String TANGGAL_POSYANDU = "jadwal posyandu"  ;
+    public static final String WAKTU_POSYANDU = "WAKTU POSYANDU";
+    public static final String ID_JADWAL_POSYANDU = "ID jadwal posyandu";
+    public static final String ID = "ID";
+    EditText etJadwalPosyandu, et_waktuyandu;
     ProgressDialog progressDialog;
     ApiInterface apiInterface;
     EditorPresenter presenter;
 
     int id;
-    String namabidan;
-    String  jadwalbidan, waktuyandu;
+    String tanggalPosyandu, waktuyandu;
     Menu actionMenu;
+    Spinner spinnerTempatPosyandu;
+    int idTempatPosyandu = 0;
+
+    private String[] tempatPosyandu = {
+            "Haurkuning I",
+            "Haurkuning II",
+            "Haurkuning III",
+            "Haurkuning IV",
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +54,33 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
         getSupportActionBar().setTitle("Input Jadwal Posyandu");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        et_namabidan = findViewById(R.id.namabidan);
-        et_jadwalbidan = findViewById(R.id.jadwalbidan);
-        et_waktuyandu = findViewById(R.id.waktuyandu);
+        etJadwalPosyandu = findViewById(R.id.tanggal_posyandu);
+        et_waktuyandu = findViewById(R.id.waktu_posyandu);
+        spinnerTempatPosyandu = findViewById(R.id.spinner_tempat_posyandu);
+
+        // inisialiasi Array Adapter dengan memasukkan string array di atas
+        @SuppressLint("ResourceType") final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, tempatPosyandu);
+
+        // mengeset Array Adapter tersebut ke Spinner
+        spinnerTempatPosyandu.setClickable(false);
+        spinnerTempatPosyandu.setEnabled(false);
+        spinnerTempatPosyandu.setAdapter(adapter);
+
+        // mengeset listener untuk mengetahui saat item dipilih
+        spinnerTempatPosyandu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // memunculkan toast + value Spinner yang dipilih (diambil dari adapter)
+//                Toast.makeText(EditorJadwalPosyanduActivity.this, "Selected position: "+i+ adapter.getItem(i), Toast.LENGTH_SHORT).show();
+                idTempatPosyandu = i + 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //PROGRESS DIALOG
         progressDialog = new ProgressDialog(this);
@@ -50,10 +89,10 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
         presenter = new EditorPresenter(this);
 
         Intent intent = getIntent();
-        id = intent.getIntExtra("id",0);
-        namabidan = intent.getStringExtra("namabidan");
-        jadwalbidan = intent.getStringExtra("jadwalbidan");
-        waktuyandu = intent.getStringExtra("waktuyandu");
+        id = intent.getIntExtra(ID,0);
+        tanggalPosyandu = intent.getStringExtra(TANGGAL_POSYANDU);
+        waktuyandu = intent.getStringExtra(WAKTU_POSYANDU);
+        idTempatPosyandu = intent.getIntExtra(ID_JADWAL_POSYANDU, 0);
 
         setDataFromIntentExtra();
     }
@@ -81,22 +120,19 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        String namabidan = et_namabidan.getText().toString().trim();
-        String jadwalbidan = et_jadwalbidan.getText().toString().trim();
+        String tanggalPosyandu = etJadwalPosyandu.getText().toString().trim();
+        Log.d("testme", "onOptionsItemSelected: "+tanggalPosyandu);
         String waktuyandu = et_waktuyandu.getText().toString().trim();
 
         switch (item.getItemId()) {
             case R.id.simpanJadwalPosyandu:
                 //SIMPAN
-
-                if (namabidan.isEmpty()) {
-                    et_namabidan.setError("Masukkan Nama Bidan");
-                } else if (jadwalbidan.isEmpty()) {
-                    et_jadwalbidan.setError("Masukkan Jadwal Bidan");
+                if (tanggalPosyandu.isEmpty()) {
+                    etJadwalPosyandu.setError("Masukkan Jadwal Bidan");
                 } else if (waktuyandu.isEmpty()) {
                     et_waktuyandu.setError("Masukkan Waktu Yandu");
                 } else {
-                    presenter.simpanJadwalPosyandu(namabidan, jadwalbidan, waktuyandu);
+                    presenter.simpanJadwalPosyandu(tanggalPosyandu, waktuyandu, idTempatPosyandu);
                 }
                 return true;
 
@@ -112,14 +148,12 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
 
             case R.id.updateJadwalPosyandu:
                 //UPDATE
-                if (namabidan.isEmpty()) {
-                    et_namabidan.setError("Masukkan Nama Bidan");
-                } else if (jadwalbidan.isEmpty()) {
-                    et_jadwalbidan.setError("Masukkan Jadwal Bidan");
+                if (tanggalPosyandu.isEmpty()) {
+                    etJadwalPosyandu.setError("Masukkan Jadwal Bidan");
                 } else if (waktuyandu.isEmpty()) {
                     et_waktuyandu.setError("Masukkan Jadwal Bidan");
                 } else {
-                    presenter.updateJadwalPosyandu(id, namabidan, jadwalbidan, waktuyandu);
+                    presenter.updateJadwalPosyandu(id, tanggalPosyandu, waktuyandu, idTempatPosyandu);
                 }
                 return true;
 
@@ -148,6 +182,7 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
 
     @Override
     public void hideProgress() {
+        progressDialog.dismiss();
         progressDialog.hide();
     }
 
@@ -167,9 +202,9 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
 
     private void setDataFromIntentExtra() {
         if (id != 0) {
-            et_namabidan.setText(namabidan);
-            et_jadwalbidan.setText(jadwalbidan);
+            etJadwalPosyandu.setText(tanggalPosyandu);
             et_waktuyandu.setText(waktuyandu);
+            spinnerTempatPosyandu.setSelection(idTempatPosyandu - 1);
 
             getSupportActionBar().setTitle("Update Jadwal Posyandu");
             readMode();
@@ -180,17 +215,18 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
     }
 
     private void editMode() {
-        et_namabidan.setFocusableInTouchMode(true);
-        et_jadwalbidan.setFocusableInTouchMode(true);
+        etJadwalPosyandu.setFocusableInTouchMode(true);
         et_waktuyandu.setFocusableInTouchMode(true);
+        spinnerTempatPosyandu.setEnabled(true);
+        spinnerTempatPosyandu.setClickable(true);
     }
 
     private void readMode() {
-        et_namabidan.setFocusableInTouchMode(false);
-        et_jadwalbidan.setFocusableInTouchMode(false);
+        etJadwalPosyandu.setFocusableInTouchMode(false);
         et_waktuyandu.setFocusableInTouchMode(false);
-        et_namabidan.setFocusable(false);
-        et_jadwalbidan.setFocusable(false);
+        etJadwalPosyandu.setFocusable(false);
         et_waktuyandu.setFocusable(false);
+        spinnerTempatPosyandu.setEnabled(false);
+        spinnerTempatPosyandu.setClickable(false);
     }
 }

@@ -39,15 +39,15 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/namabidan"
+            android:id="@+id/tanggal_posyandu"
             android:layout_below="@+id/jadwalbidan"
             android:text="@string/namabidan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"/>
         <TextView
-            android:id="@+id/waktuyandu"
-            android:layout_below="@+id/namabidan"
+            android:id="@+id/waktu_posyandu"
+            android:layout_below="@+id/tanggal_posyandu"
             android:text="@string/waktuyandu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

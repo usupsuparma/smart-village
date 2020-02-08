@@ -5,17 +5,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class JadwalPosyandu {
 
+    @SerializedName("id")
     @Expose
-    @SerializedName("id") private int id;
-
+    private int id;
+    @SerializedName("lokasi")
     @Expose
-    @SerializedName("namabidan") private String namabidan;
-
+    private String lokasi;
+    @SerializedName("dusun")
     @Expose
-    @SerializedName("waktuyandu") private String waktuyandu;
-
+    private String dusun;
+    @SerializedName("id_posyandu")
     @Expose
-    @SerializedName("jadwalbidan") private String jadwalbidan;
+    private int idPosyandu;
+    @SerializedName("tgl_yandu")
+    @Expose
+    private String tglYandu;
+    @SerializedName("waktuyandu")
+    @Expose
+    private String waktuyandu;
 
     @Expose
     @SerializedName("success") private Boolean success;
@@ -31,12 +38,36 @@ public class JadwalPosyandu {
         this.id = id;
     }
 
-    public String getNamabidan() {
-        return namabidan;
+    public String getLokasi() {
+        return lokasi;
     }
 
-    public void setNamabidan(String namabidan) {
-        this.namabidan = namabidan;
+    public void setLokasi(String lokasi) {
+        this.lokasi = lokasi;
+    }
+
+    public String getDusun() {
+        return dusun;
+    }
+
+    public void setDusun(String dusun) {
+        this.dusun = dusun;
+    }
+
+    public int getIdPosyandu() {
+        return idPosyandu;
+    }
+
+    public void setIdPosyandu(int idPosyandu) {
+        this.idPosyandu = idPosyandu;
+    }
+
+    public String getTglYandu() {
+        return tglYandu;
+    }
+
+    public void setTglYandu(String tglYandu) {
+        this.tglYandu = tglYandu;
     }
 
     public String getWaktuyandu() {
@@ -45,14 +76,6 @@ public class JadwalPosyandu {
 
     public void setWaktuyandu(String waktuyandu) {
         this.waktuyandu = waktuyandu;
-    }
-
-    public String getJadwalbidan() {
-        return jadwalbidan;
-    }
-
-    public void setJadwalbidan(String jadwalbidan) {
-        this.jadwalbidan = jadwalbidan;
     }
 
     public Boolean getSuccess() {
@@ -70,4 +93,5 @@ public class JadwalPosyandu {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }
