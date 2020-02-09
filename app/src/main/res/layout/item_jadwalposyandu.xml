@@ -31,7 +31,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/jadwalbidan"
+            android:id="@+id/tempatposyandu"
             android:text="@string/jadwalbidan"
             android:textSize="18sp"
             android:textColor="@color/bluesolid"
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/tanggal_posyandu"
-            android:layout_below="@+id/jadwalbidan"
+            android:layout_below="@+id/tempatposyandu"
             android:text="@string/namabidan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

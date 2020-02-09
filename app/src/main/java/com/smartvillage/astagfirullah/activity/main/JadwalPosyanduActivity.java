@@ -39,10 +39,9 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
-        recyclerView = findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.rv_jadwal_posyandu);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        adapter = new MainAdapterJadwalPosyandu(this);
-        recyclerView.setAdapter(adapter);
+
 
         addjadwalposyandu = findViewById(R.id.addjadwalposyandu);
         addjadwalposyandu.setOnClickListener(view ->
@@ -82,7 +81,8 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
 
     @Override
     public void onGetResult(List<JadwalPosyandu> jadwalPosyanduList) {
-        Log.d("testme", "onGetResult: " + jadwalPosyanduList.size());
+        adapter = new MainAdapterJadwalPosyandu(this);
+        recyclerView.setAdapter(adapter);
         adapter.setJadwalPosyanduList(jadwalPosyanduList);
 
     }

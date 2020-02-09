@@ -1,5 +1,7 @@
 package com.smartvillage.astagfirullah.activity.main;
 
+import android.util.Log;
+
 import com.smartvillage.astagfirullah.api.ApiClient;
 import com.smartvillage.astagfirullah.api.ApiInterface;
 import com.smartvillage.astagfirullah.model.JadwalPosyandu;
@@ -25,6 +27,7 @@ public class MainPresenterJadwalPosyandu {
             @Override
             public void onResponse(Call<List<JadwalPosyandu>> call, Response<List<JadwalPosyandu>> response) {
                 view.hideLoading();
+                Log.d("testme", "onResponse: "+response.body().size());
                 if (response.isSuccessful()) {
                     view.onGetResult(response.body());
                 } else {
@@ -40,5 +43,7 @@ public class MainPresenterJadwalPosyandu {
         });
 
     }
+
+
 
 }

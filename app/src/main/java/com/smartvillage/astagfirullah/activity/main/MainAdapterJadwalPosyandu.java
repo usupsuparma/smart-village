@@ -1,6 +1,5 @@
 package com.smartvillage.astagfirullah.activity.main;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +62,7 @@ public class MainAdapterJadwalPosyandu extends RecyclerView.Adapter<MainAdapterJ
             super(itemView);
 
             tanggalPosyandu = itemView.findViewById(R.id.tanggal_posyandu);
-            tv_jadwalbidan = itemView.findViewById(R.id.jadwalbidan);
+            tv_jadwalbidan = itemView.findViewById(R.id.tempatposyandu);
             tv_waktuyandu = itemView.findViewById(R.id.waktu_posyandu);
             itemjadwalposyandu = itemView.findViewById(R.id.itemjadwalposyandu);
 

@@ -256,11 +256,9 @@ public class EditorPresenter {
     public void deleteJadwalPosyandu(int id) {
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<JadwalPosyandu> call = apiInterface.deleteJadwalPosyandu(id);
-
-        call.enqueue(new Callback<JadwalPosyandu>() {
+        apiInterface.deleteJadwalPosyandu(id).enqueue(new Callback<JadwalPosyandu>() {
             @Override
-            public void onResponse(@NonNull Call<JadwalPosyandu> call, @NonNull Response<JadwalPosyandu> response) {
+            public void onResponse(Call<JadwalPosyandu> call, Response<JadwalPosyandu> response) {
                 view.hideProgress();
                 if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
@@ -273,7 +271,7 @@ public class EditorPresenter {
             }
 
             @Override
-            public void onFailure(@NonNull Call<JadwalPosyandu> call, @NonNull Throwable t) {
+            public void onFailure(Call<JadwalPosyandu> call, Throwable t) {
                 view.hideProgress();
                 view.onRequestError(t.getLocalizedMessage());
             }
