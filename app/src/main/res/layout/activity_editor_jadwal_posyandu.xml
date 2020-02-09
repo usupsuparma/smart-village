@@ -14,32 +14,77 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="20dp">
 
-        <EditText
+        <Spinner
+            android:id="@+id/spinner_tempat_posyandu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/divider"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/spinner_tempat_posyandu"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray50"/>
+        <ImageView
+            android:id="@+id/iv_date"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@+id/spinner_tempat_posyandu"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_date_range_black_24dp"/>
+
+        <TextView
             android:id="@+id/tanggal_posyandu"
             android:layout_below="@+id/spinner_tempat_posyandu"
             android:hint="@string/namabidan"
             android:textColorHint="@color/gray50"
             android:fontFamily="@font/regular"
             android:textSize="14sp"
+            android:layout_marginStart="8dp"
+            android:layout_toRightOf="@+id/iv_date"
             android:layout_marginTop="20dp"
+            android:gravity="center|start"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <EditText
+            android:layout_height="32dp"/>
+
+
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/divider_date"
+            android:layout_below="@+id/iv_date"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray50"/>
+
+
+        <ImageView
+            android:id="@+id/iv_time"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_below="@+id/iv_date"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_date_range_black_24dp"/>
+        <TextView
             android:id="@+id/waktu_posyandu"
             android:layout_below="@+id/tanggal_posyandu"
             android:hint="@string/waktuyandu"
             android:textColorHint="@color/gray50"
             android:fontFamily="@font/regular"
+            android:layout_toRightOf="@+id/iv_time"
             android:textSize="14sp"
+            android:gravity="center|start"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="32dp"/>
 
-        <Spinner
-            android:id="@+id/spinner_tempat_posyandu"
-            android:layout_below="@+id/jadwalbidan"
+        <TextView
+            android:layout_marginTop="4dp"
+            android:id="@+id/divider_time"
+            android:layout_below="@+id/iv_time"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="1dp"
+            android:background="@color/gray50"/>
 
     </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.smartvillage.astagfirullah.activity.main;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +33,13 @@ public class MainAdapterJadwalPosyandu extends RecyclerView.Adapter<MainAdapterJ
 
     @NonNull
     @Override
-    public MainAdapterJadwalPosyandu.RecyclerViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerViewAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_jadwalposyandu, parent, false);
-        return new MainAdapterJadwalPosyandu.RecyclerViewAdapter(view, itemClickListener);
+        return new RecyclerViewAdapter(view, itemClickListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainAdapterJadwalPosyandu.RecyclerViewAdapter holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter holder, int position) {
         JadwalPosyandu jadwalPosyandu = jadwalPosyanduList.get(position);
         holder.jadwalPosyandu = jadwalPosyandu;
         holder.tv_jadwalbidan.setText(jadwalPosyandu.getLokasi());
@@ -53,9 +54,9 @@ public class MainAdapterJadwalPosyandu extends RecyclerView.Adapter<MainAdapterJ
 
     class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        final TextView tanggalPosyandu, tv_jadwalbidan, tv_waktuyandu;
-        final CardView itemjadwalposyandu;
-        final MainAdapterJadwalPosyandu.ItemClickListener itemClickListener;
+        TextView tanggalPosyandu, tv_jadwalbidan, tv_waktuyandu;
+        CardView itemjadwalposyandu;
+        ItemClickListener itemClickListener;
         JadwalPosyandu jadwalPosyandu;
 
         RecyclerViewAdapter(@NonNull View itemView, ItemClickListener itemClickListener) {

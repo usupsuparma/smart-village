@@ -41,7 +41,7 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
         swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        adapter = new MainAdapterJadwalPosyandu(this::onItemClick);
+        adapter = new MainAdapterJadwalPosyandu(this);
         recyclerView.setAdapter(adapter);
 
         addjadwalposyandu = findViewById(R.id.addjadwalposyandu);
@@ -65,7 +65,6 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
         if (requestCode == INTENT_ADD && resultCode == RESULT_OK) {
             presenter.getData(); //reload data
         } else if (requestCode == INTENT_EDIT && resultCode == RESULT_OK) {
-            Log.d("testme", "onActivityResult: dari edit");
             presenter.getData(); //reload data
 
         }

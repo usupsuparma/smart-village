@@ -15,29 +15,40 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smartvillage.astagfirullah.R;
-import com.smartvillage.astagfirullah.api.ApiInterface;
+import com.smartvillage.astagfirullah.commons.DatePickerFragment;
+import com.smartvillage.astagfirullah.commons.TimePickerFragment;
 
-public class EditorJadwalPosyanduActivity extends AppCompatActivity implements EditorView {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
-    public static final String TANGGAL_POSYANDU = "jadwal posyandu"  ;
+public class EditorJadwalPosyanduActivity extends AppCompatActivity implements EditorView,
+        DatePickerFragment.DialogDateListener, TimePickerFragment.DialogTimeListener,
+        View.OnClickListener
+{
+
+    public static final String TANGGAL_POSYANDU = "jadwal posyandu";
     public static final String WAKTU_POSYANDU = "WAKTU POSYANDU";
     public static final String ID_JADWAL_POSYANDU = "ID jadwal posyandu";
     public static final String ID = "ID";
-    EditText etJadwalPosyandu, et_waktuyandu;
-    ProgressDialog progressDialog;
-    ApiInterface apiInterface;
-    EditorPresenter presenter;
+    private static final String TIME_PICKER = "TimePicker";
+    private final String DATE_PICKER_TAG = "DatePicker";
+    private TextView tvJadwalPosyandu, tvwaktuyandu;
+    private ProgressDialog progressDialog;
+    private EditorPresenter presenter;
+    private ImageView ivDate, ivTime;
 
-    int id;
-    String tanggalPosyandu, waktuyandu;
-    Menu actionMenu;
-    Spinner spinnerTempatPosyandu;
-    int idTempatPosyandu = 0;
+    private int id;
+    private String tanggalPosyandu, waktuyandu;
+    private Menu actionMenu;
+    private Spinner spinnerTempatPosyandu;
+    private int idTempatPosyandu = 0;
 
     private String[] tempatPosyandu = {
             "Haurkuning I",
@@ -54,9 +65,15 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
         getSupportActionBar().setTitle("Input Jadwal Posyandu");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        etJadwalPosyandu = findViewById(R.id.tanggal_posyandu);
-        et_waktuyandu = findViewById(R.id.waktu_posyandu);
+        tvJadwalPosyandu = findViewById(R.id.tanggal_posyandu);
+        tvJadwalPosyandu.setOnClickListener(this::onClick);
+        tvwaktuyandu = findViewById(R.id.waktu_posyandu);
+        tvwaktuyandu.setOnClickListener(this::onClick);
         spinnerTempatPosyandu = findViewById(R.id.spinner_tempat_posyandu);
+        ivDate = findViewById(R.id.iv_date);
+        ivDate.setOnClickListener(this::onClick);
+        ivTime = findViewById(R.id.iv_time);
+        ivTime.setOnClickListener(this::onClick);
 
         // inisialiasi Array Adapter dengan memasukkan string array di atas
         @SuppressLint("ResourceType") final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -89,7 +106,7 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
         presenter = new EditorPresenter(this);
 
         Intent intent = getIntent();
-        id = intent.getIntExtra(ID,0);
+        id = intent.getIntExtra(ID, 0);
         tanggalPosyandu = intent.getStringExtra(TANGGAL_POSYANDU);
         waktuyandu = intent.getStringExtra(WAKTU_POSYANDU);
         idTempatPosyandu = intent.getIntExtra(ID_JADWAL_POSYANDU, 0);
@@ -103,7 +120,7 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
         inflater.inflate(R.menu.editor_jadwalposyandu, menu);
         actionMenu = menu;
 
-        if (id != 0){
+        if (id != 0) {
             actionMenu.findItem(R.id.editJadwalPosyandu).setVisible(true);
             actionMenu.findItem(R.id.deleteJadwalPosyandu).setVisible(true);
             actionMenu.findItem(R.id.simpanJadwalPosyandu).setVisible(false);
@@ -120,17 +137,17 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        String tanggalPosyandu = etJadwalPosyandu.getText().toString().trim();
-        Log.d("testme", "onOptionsItemSelected: "+tanggalPosyandu);
-        String waktuyandu = et_waktuyandu.getText().toString().trim();
+        String tanggalPosyandu = tvJadwalPosyandu.getText().toString().trim();
+        Log.d("testme", "onOptionsItemSelected: " + tanggalPosyandu);
+        String waktuyandu = tvwaktuyandu.getText().toString().trim();
 
         switch (item.getItemId()) {
             case R.id.simpanJadwalPosyandu:
                 //SIMPAN
                 if (tanggalPosyandu.isEmpty()) {
-                    etJadwalPosyandu.setError("Masukkan Jadwal Bidan");
+                    tvJadwalPosyandu.setError("Masukkan Jadwal Bidan");
                 } else if (waktuyandu.isEmpty()) {
-                    et_waktuyandu.setError("Masukkan Waktu Yandu");
+                    tvwaktuyandu.setError("Masukkan Waktu Yandu");
                 } else {
                     presenter.simpanJadwalPosyandu(tanggalPosyandu, waktuyandu, idTempatPosyandu);
                 }
@@ -149,9 +166,9 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
             case R.id.updateJadwalPosyandu:
                 //UPDATE
                 if (tanggalPosyandu.isEmpty()) {
-                    etJadwalPosyandu.setError("Masukkan Jadwal Bidan");
+                    tvJadwalPosyandu.setError("Masukkan Jadwal Bidan");
                 } else if (waktuyandu.isEmpty()) {
-                    et_waktuyandu.setError("Masukkan Jadwal Bidan");
+                    tvwaktuyandu.setError("Masukkan Jadwal Bidan");
                 } else {
                     presenter.updateJadwalPosyandu(id, tanggalPosyandu, waktuyandu, idTempatPosyandu);
                 }
@@ -188,7 +205,7 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
 
     @Override
     public void onRequestSuccess(String message) {
-        Toast.makeText(EditorJadwalPosyanduActivity.this,message,
+        Toast.makeText(EditorJadwalPosyanduActivity.this, message,
                 Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish(); // Back to JadwalPosyanduActivity
@@ -196,14 +213,14 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
 
     @Override
     public void onRequestError(String message) {
-            Toast.makeText(EditorJadwalPosyanduActivity.this, message,
-                    Toast.LENGTH_SHORT).show();
+        Toast.makeText(EditorJadwalPosyanduActivity.this, message,
+                Toast.LENGTH_SHORT).show();
     }
 
     private void setDataFromIntentExtra() {
         if (id != 0) {
-            etJadwalPosyandu.setText(tanggalPosyandu);
-            et_waktuyandu.setText(waktuyandu);
+            tvJadwalPosyandu.setText(tanggalPosyandu);
+            tvwaktuyandu.setText(waktuyandu);
             spinnerTempatPosyandu.setSelection(idTempatPosyandu - 1);
 
             getSupportActionBar().setTitle("Update Jadwal Posyandu");
@@ -215,18 +232,77 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
     }
 
     private void editMode() {
-        etJadwalPosyandu.setFocusableInTouchMode(true);
-        et_waktuyandu.setFocusableInTouchMode(true);
+        ivTime.setEnabled(true);
+        ivDate.setEnabled(true);
+        tvJadwalPosyandu.setFocusableInTouchMode(true);
+        tvJadwalPosyandu.setEnabled(true);
+        tvwaktuyandu.setEnabled(true);
+        tvwaktuyandu.setFocusableInTouchMode(true);
         spinnerTempatPosyandu.setEnabled(true);
         spinnerTempatPosyandu.setClickable(true);
     }
 
     private void readMode() {
-        etJadwalPosyandu.setFocusableInTouchMode(false);
-        et_waktuyandu.setFocusableInTouchMode(false);
-        etJadwalPosyandu.setFocusable(false);
-        et_waktuyandu.setFocusable(false);
+        ivTime.setEnabled(false);
+        ivDate.setEnabled(false);
+        tvJadwalPosyandu.setEnabled(false);
+        tvwaktuyandu.setEnabled(false);
+        tvJadwalPosyandu.setFocusableInTouchMode(false);
+        tvwaktuyandu.setFocusableInTouchMode(false);
+        tvJadwalPosyandu.setFocusable(false);
+        tvwaktuyandu.setFocusable(false);
         spinnerTempatPosyandu.setEnabled(false);
         spinnerTempatPosyandu.setClickable(false);
+    }
+
+    @Override
+    public void onDialogDateSet(String tag, int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, dayOfMonth);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        tvJadwalPosyandu.setText(dateFormat.format(calendar.getTime()));
+
+    }
+
+    @Override
+    public void onDialogTimeSet(String tag, int hourOfDay, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+        switch (tag) {
+            case TIME_PICKER:
+                tvwaktuyandu.setText(dateFormat.format(calendar.getTime()));
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tanggal_posyandu:
+            case R.id.iv_date:
+                openDatePicker();
+                break;
+            case R.id.waktu_posyandu:
+            case R.id.iv_time:
+                openTimePicker();
+                break;
+        }
+
+    }
+
+    void openDatePicker() {
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.show(getSupportFragmentManager(), DATE_PICKER_TAG);
+
+    }
+
+    void openTimePicker() {
+        TimePickerFragment timePickerFragmentOne = new TimePickerFragment();
+        timePickerFragmentOne.show(getSupportFragmentManager(), TIME_PICKER);
+
     }
 }
