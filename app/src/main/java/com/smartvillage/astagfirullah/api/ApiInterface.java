@@ -49,7 +49,7 @@ public interface ApiInterface {
     @POST("get_save_jadwalronda.php")
     Call<JadwalRonda> simpanJadwalRonda (
             @Field("namapetugas") String namapetugas,
-            @Field("jadwalpetugas") String jadwalpetugas );
+            @Field("id_hari") int idHari );
 
     @GET("get_data_jadwalronda.php")
     Call<List<JadwalRonda>> getJadwalRonda();
@@ -59,7 +59,7 @@ public interface ApiInterface {
     Call<JadwalRonda> updateJadwalRonda(
             @Field("id") int id,
             @Field("namapetugas") String namapetugas,
-            @Field("jadwalpetugas") String jadwalpetugas );
+            @Field("id_hari") int idHari);
 
     @FormUrlEncoded
     @POST("get_delete_jadwalronda.php")

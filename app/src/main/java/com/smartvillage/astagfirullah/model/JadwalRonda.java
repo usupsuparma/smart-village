@@ -15,6 +15,12 @@ public class JadwalRonda {
     @SerializedName("jadwalpetugas") private String jadwalpetugas;
 
     @Expose
+    @SerializedName("id_hari") private int idHari;
+
+    @Expose
+    @SerializedName("nik") private String nik;
+
+    @Expose
     @SerializedName("success") private Boolean success;
 
     @Expose
@@ -58,5 +64,21 @@ public class JadwalRonda {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getIdHari() {
+        return idHari;
+    }
+
+    public void setIdHari(int idHari) {
+        this.idHari = idHari;
+    }
+
+    public String getNik() {
+        return nik;
+    }
+
+    public void setNik(String nik) {
+        this.nik = nik;
     }
 }

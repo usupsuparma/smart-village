@@ -14,21 +14,15 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="20dp">
 
-        <EditText
-            android:id="@+id/jadwalpetugas"
-            android:hint="@string/jadwalpetugas"
-            android:fontFamily="@font/regular"
-            android:textSize="16sp"
-            android:textColorHint="@color/gray50"
-            android:inputType="textCapSentences"
+        <Spinner
+            android:id="@+id/sp_hari"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="Autofill"/>
+            android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/namapetugas"
-            android:layout_below="@+id/jadwalpetugas"
-            android:hint="@string/namapetugas"
+            android:layout_below="@+id/sp_hari"
+            android:hint="@string/nikpetugas"
             android:textColorHint="@color/gray50"
             android:fontFamily="@font/regular"
             android:textSize="14sp"

@@ -14,18 +14,23 @@ import com.smartvillage.astagfirullah.R;
 import com.smartvillage.astagfirullah.model.JadwalRonda;
 import com.smartvillage.astagfirullah.model.RiwayatSakit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainAdapterJadwalRonda extends RecyclerView.Adapter<MainAdapterJadwalRonda.RecyclerViewAdapter> {
 
     private Context context;
     private ItemClickListener itemClickListener;
-    private List<JadwalRonda> jadwalRondaList;
+    private List<JadwalRonda> jadwalRondaList = new ArrayList<>();
 
-    public MainAdapterJadwalRonda(Context context, List<JadwalRonda> jadwalRondaList, MainAdapterJadwalRonda.ItemClickListener itemClickListener) {
+    public MainAdapterJadwalRonda(Context context, MainAdapterJadwalRonda.ItemClickListener itemClickListener) {
         this.context = context;
         this.itemClickListener = itemClickListener;
+    }
+
+    public void setJadwalRondaList(List<JadwalRonda> jadwalRondaList) {
         this.jadwalRondaList = jadwalRondaList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -38,6 +43,7 @@ public class MainAdapterJadwalRonda extends RecyclerView.Adapter<MainAdapterJadw
     @Override
     public void onBindViewHolder(@NonNull MainAdapterJadwalRonda.RecyclerViewAdapter holder, int position) {
         JadwalRonda jadwalRonda = jadwalRondaList.get(position);
+        holder.jadwalRonda = jadwalRonda;
         holder.tv_namapetugas.setText(jadwalRonda.getNamapetugas());
         holder.tv_jadwalpetugas.setText(jadwalRonda.getJadwalpetugas());
     }
@@ -52,6 +58,7 @@ public class MainAdapterJadwalRonda extends RecyclerView.Adapter<MainAdapterJadw
         TextView tv_namapetugas, tv_jadwalpetugas;
         CardView itemjadwalronda;
         MainAdapterJadwalRonda.ItemClickListener itemClickListener;
+        JadwalRonda jadwalRonda;
 
         RecyclerViewAdapter(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
@@ -66,11 +73,11 @@ public class MainAdapterJadwalRonda extends RecyclerView.Adapter<MainAdapterJadw
 
         @Override
         public void onClick(View view) {
-            itemClickListener.onItemClick(view, getAdapterPosition());
+            itemClickListener.onItemClick(jadwalRonda, getAdapterPosition());
         }
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(JadwalRonda jadwalRonda,  int position);
     }
 }

@@ -13,6 +13,7 @@
 
     <!--JADWAL RONDA-->
     <string name="namapetugas">Nama Petugas</string>
+    <string name="nikpetugas">NIK Petugas</string>
     <string name="jadwalpetugas">Jadwal Petugas</string>
 
     <string name="simpanjadwalronda">simpanJadwalRonda</string>

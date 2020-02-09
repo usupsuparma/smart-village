@@ -109,11 +109,12 @@ public class EditorPresenter {
     }
 
     //  JADWAL RONDA SIMPAN     ========================================================================
-    void simpanJadwalRonda(final String namaPetugas, final String jadwalPetugas) {
+    void simpanJadwalRonda(final String namaPetugas, final int idJadwalHari) {
+        Log.d("testme", "simpanJadwalRonda: "+idJadwalHari);
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<JadwalRonda> call = apiInterface.simpanJadwalRonda(namaPetugas, jadwalPetugas);
+        Call<JadwalRonda> call = apiInterface.simpanJadwalRonda(namaPetugas, idJadwalHari);
 
         call.enqueue(new Callback<JadwalRonda>() {
             @Override
@@ -139,11 +140,12 @@ public class EditorPresenter {
     }
 
     //  JADWAL RONDA UPDATE     ========================================================================
-    public void updateJadwalRonda(int id, String namapetugas, String jadwalpetugas) {
+    public void updateJadwalRonda(int id, String namapetugas, int idHari) {
+        Log.d("testme", "updateJadwalRonda: "+idHari);
         view.showProgress();
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
-        Call<JadwalRonda> call = apiInterface.updateJadwalRonda(id, namapetugas, jadwalpetugas);
+        Call<JadwalRonda> call = apiInterface.updateJadwalRonda(id, namapetugas, idHari);
         call.enqueue(new Callback<JadwalRonda>() {
             @Override
             public void onResponse(@NonNull Call<JadwalRonda> call, @NonNull Response<JadwalRonda> response) {
