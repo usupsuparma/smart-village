@@ -75,7 +75,7 @@ public class MainAdapterRiwayatSakit extends RecyclerView.Adapter<MainAdapterRiw
 
         @Override
         public void onClick(View view) {
-            itemClickListener.onItemClick(riwayatSakit, getAdapterPosition());
+            itemClickListener.onItemClick(view, riwayatSakit);
         }
     }
 

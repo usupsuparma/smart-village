@@ -18,7 +18,7 @@ import com.smartvillage.astagfirullah.model.JadwalRonda;
 
 import java.util.List;
 
-public class JadwalRondaActivity extends AppCompatActivity implements MainViewJadwalRonda{
+public class JadwalRondaActivity extends AppCompatActivity implements MainViewJadwalRonda, MainAdapterJadwalRonda.ItemClickListener {
 
     private static final int INTENT_ADD = 100;
     private static final int INTENT_EDIT = 200;
@@ -29,7 +29,6 @@ public class JadwalRondaActivity extends AppCompatActivity implements MainViewJa
 
     MainPresenterJadwalRonda presenter;
     MainAdapterJadwalRonda adapter;
-    MainAdapterJadwalRonda.ItemClickListener itemClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class JadwalRondaActivity extends AppCompatActivity implements MainViewJa
         swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MainAdapterJadwalRonda(this, itemClickListener);
+        adapter = new MainAdapterJadwalRonda(this, this::onItemClick);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         addjadwalronda = findViewById(R.id.addjadwalronda);
@@ -57,22 +56,7 @@ public class JadwalRondaActivity extends AppCompatActivity implements MainViewJa
                 () -> presenter.getData()
         );
 
-        itemClickListener = ((jadwalRonda, position) -> {
-            int id = jadwalRonda.getId();
-            String namapetugas = jadwalRonda.getNamapetugas();
-            String jadwalpetugas = jadwalRonda.getJadwalpetugas();
-            String nik = jadwalRonda.getNik();
-            int idHari = jadwalRonda.getIdHari();
 
-            Intent intent = new Intent(this, EditorJadwalRondaActivity.class);
-
-            intent.putExtra(EditorJadwalRondaActivity.ID, id);
-            intent.putExtra(EditorJadwalRondaActivity.NAMA_PETUGAS, namapetugas);
-            intent.putExtra(EditorJadwalRondaActivity.JADWAL_PETUGAS, jadwalpetugas);
-            intent.putExtra(EditorJadwalRondaActivity.NIK, nik);
-            intent.putExtra(EditorJadwalRondaActivity.ID_HARI, idHari);
-            startActivityForResult(intent, INTENT_EDIT);
-        });
     }
 
     @Override
@@ -104,5 +88,23 @@ public class JadwalRondaActivity extends AppCompatActivity implements MainViewJa
     @Override
     public void onErrorLoading(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(JadwalRonda jadwalRonda, int position) {
+        int id = jadwalRonda.getId();
+        String namapetugas = jadwalRonda.getNamapetugas();
+        String jadwalpetugas = jadwalRonda.getJadwalpetugas();
+        String nik = jadwalRonda.getNik();
+        int idHari = jadwalRonda.getIdHari();
+
+        Intent intent = new Intent(this, EditorJadwalRondaActivity.class);
+
+        intent.putExtra(EditorJadwalRondaActivity.ID, id);
+        intent.putExtra(EditorJadwalRondaActivity.NAMA_PETUGAS, namapetugas);
+        intent.putExtra(EditorJadwalRondaActivity.JADWAL_PETUGAS, jadwalpetugas);
+        intent.putExtra(EditorJadwalRondaActivity.NIK, nik);
+        intent.putExtra(EditorJadwalRondaActivity.ID_HARI, idHari);
+        startActivityForResult(intent, INTENT_EDIT);
     }
 }
