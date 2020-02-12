@@ -101,6 +101,7 @@ public interface ApiInterface {
 
 //  PROFIL =========================================================================================
 
-    @GET("api.php?id=get_data_profil")
+    @FormUrlEncoded
+    @POST("api.php?id=get_data_profil")
     Call<List<Profil>> getProfil(  @Field("nik") String nik);
 }
