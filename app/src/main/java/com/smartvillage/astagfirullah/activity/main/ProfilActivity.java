@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ProfilActivity extends AppCompatActivity implements MainViewProfil{
+public class ProfilActivity extends AppCompatActivity implements MainViewProfil, MainAdapterProfil.ItemClickListener{
 
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -27,7 +27,6 @@ public class ProfilActivity extends AppCompatActivity implements MainViewProfil{
     private String nik, id;
     MainPresenterProfil presenter;
     MainAdapterProfil adapter;
-    MainAdapterProfil.ItemClickListener itemClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class ProfilActivity extends AppCompatActivity implements MainViewProfil{
 
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MainAdapterProfil(this, itemClickListener);
+        adapter = new MainAdapterProfil(this, this::onItemClick);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
@@ -77,5 +76,10 @@ public class ProfilActivity extends AppCompatActivity implements MainViewProfil{
     @Override
     public void onErrorLoading(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(Profil profil) {
+
     }
 }
