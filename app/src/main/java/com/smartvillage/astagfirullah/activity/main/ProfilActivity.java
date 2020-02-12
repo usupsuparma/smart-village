@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smartvillage.astagfirullah.R;
@@ -21,32 +22,29 @@ import java.util.List;
 
 public class ProfilActivity extends AppCompatActivity implements MainViewProfil, MainAdapterProfil.ItemClickListener{
 
-    RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
+
     private SessionManager sessionManager;
     private String nik, id;
     MainPresenterProfil presenter;
-    MainAdapterProfil adapter;
+
+    private TextView tvNik, nama, tanggalLahir, jenisKelamin, alamat, agama, status, pekerjaan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
+        initView();
 
         getSupportActionBar().setTitle("Profil");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recyclerView = findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MainAdapterProfil(this, this::onItemClick);
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
 
-        swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
         HashMap<String, String> user = sessionManager.getUserDetail();
         nik = user.get(sessionManager.NIK);
+        Log.d("testme", "onCreate: "+nik);
         id = user.get(sessionManager.NAMA);
         presenter = new MainPresenterProfil(this);
         presenter.getData(nik);
@@ -54,6 +52,18 @@ public class ProfilActivity extends AppCompatActivity implements MainViewProfil,
         swipeRefreshLayout.setOnRefreshListener(
                 () -> presenter.getData(nik)
         );
+    }
+
+    private void initView() {
+        swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
+        tvNik = findViewById(R.id.nik);
+        nama = findViewById(R.id.nama);
+        tanggalLahir = findViewById(R.id.tanggallahir);
+        jenisKelamin = findViewById(R.id.jeniskelamin);
+        alamat = findViewById(R.id.alamat);
+        agama = findViewById(R.id.agama);
+        status = findViewById(R.id.status);
+        pekerjaan = findViewById(R.id.pekerjaan);
     }
 
     @Override
@@ -67,9 +77,17 @@ public class ProfilActivity extends AppCompatActivity implements MainViewProfil,
     }
 
     @Override
-    public void onGetResult(List<Profil> profilList) {
-        Log.d("TAG", "onGetResult: "+profilList);
-        adapter.setProfilList(profilList);
+    public void onGetResult(List<Profil> profils) {
+        Profil profil = profils.get(0);
+        Log.d("TAG", "onGetResult: "+profil);
+        tvNik.setText(profil.getNik());
+        nama.setText(profil.getNama());
+        tanggalLahir.setText(profil.getTanggallahir());
+        jenisKelamin.setText(profil.getJeniskelamin());
+        alamat.setText(profil.getAlamat());
+        agama.setText(profil.getAgama());
+        status.setText(profil.getStatus());
+        pekerjaan.setText(profil.getPekerjaan());
 
     }
 
