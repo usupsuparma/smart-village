@@ -42,6 +42,7 @@ public class MainAdapterProfil extends RecyclerView.Adapter<MainAdapterProfil.Re
     @Override
     public void onBindViewHolder(@NonNull MainAdapterProfil.RecyclerViewAdapter holder, int position) {
         Profil profil = profilList.get(position);
+        holder.profil = profil;
         holder.tv_nik.setText(profil.getNik());
         holder.tv_nama.setText(profil.getNama());
         holder.tv_tanggallahir.setText(profil.getTanggallahir());
@@ -62,6 +63,7 @@ public class MainAdapterProfil extends RecyclerView.Adapter<MainAdapterProfil.Re
         TextView tv_nik, tv_nama, tv_tanggallahir, tv_jeniskelamin, tv_alamat, tv_agama, tv_status, tv_pekerjaan;
         CardView itemprofil;
         MainAdapterProfil.ItemClickListener itemClickListener;
+        Profil profil;
 
         RecyclerViewAdapter(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
@@ -81,11 +83,11 @@ public class MainAdapterProfil extends RecyclerView.Adapter<MainAdapterProfil.Re
 
         @Override
         public void onClick(View view) {
-            itemClickListener.onItemClick(view, getAdapterPosition());
+            itemClickListener.onItemClick(profil);
         }
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(Profil profil);
     }
 }
