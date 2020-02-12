@@ -102,5 +102,5 @@ public interface ApiInterface {
 //  PROFIL =========================================================================================
 
     @GET("api.php?id=get_data_profil")
-    Call<List<Profil>> getProfil();
+    Call<List<Profil>> getProfil(  @Field("nik") String nik);
 }

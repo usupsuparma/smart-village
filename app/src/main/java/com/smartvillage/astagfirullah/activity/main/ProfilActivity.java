@@ -50,10 +50,10 @@ public class ProfilActivity extends AppCompatActivity implements MainViewProfil{
         nik = user.get(sessionManager.NIK);
         id = user.get(sessionManager.NAMA);
         presenter = new MainPresenterProfil(this);
-        presenter.getData();
+        presenter.getData(nik);
 
         swipeRefreshLayout.setOnRefreshListener(
-                () -> presenter.getData()
+                () -> presenter.getData(nik)
         );
     }
 
