@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText nik, password;
     private Button BtnMasuk;
     private ProgressBar loading;
-    private static String URL_LOGIN = "https://simdesapp.windstandrobotic.org/leder_login.php";
+    private static String URL_LOGIN = "https://simdesapp.windstandrobotic.org/api.php?id=login";
     SessionManager sessionManager;
 
     @Override

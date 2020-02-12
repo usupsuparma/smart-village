@@ -16,6 +16,7 @@ import com.smartvillage.astagfirullah.activity.editor.EditorJadwalPosyanduActivi
 import com.smartvillage.astagfirullah.activity.editor.EditorJadwalRondaActivity;
 import com.smartvillage.astagfirullah.model.JadwalRonda;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class JadwalRondaActivity extends AppCompatActivity implements MainViewJadwalRonda, MainAdapterJadwalRonda.ItemClickListener {
@@ -25,6 +26,8 @@ public class JadwalRondaActivity extends AppCompatActivity implements MainViewJa
 
     FloatingActionButton addjadwalronda;
     RecyclerView recyclerView;
+    private SessionManager sessionManager;
+    private String id;
     SwipeRefreshLayout swipeRefreshLayout;
 
     MainPresenterJadwalRonda presenter;
@@ -55,6 +58,17 @@ public class JadwalRondaActivity extends AppCompatActivity implements MainViewJa
         swipeRefreshLayout.setOnRefreshListener(
                 () -> presenter.getData()
         );
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        id = user.get(sessionManager.NAMA);
+        if(id.equals("Admin")){
+            addjadwalronda.show();
+        }else if(id.equals("Linmas")) {
+            addjadwalronda.show();
+        }else{
+            addjadwalronda.hide();
+        }
 
 
     }

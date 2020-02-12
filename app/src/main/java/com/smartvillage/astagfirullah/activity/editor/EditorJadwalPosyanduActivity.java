@@ -21,11 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smartvillage.astagfirullah.R;
+import com.smartvillage.astagfirullah.activity.main.SessionManager;
 import com.smartvillage.astagfirullah.commons.DatePickerFragment;
 import com.smartvillage.astagfirullah.commons.TimePickerFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class EditorJadwalPosyanduActivity extends AppCompatActivity implements EditorView,
@@ -43,7 +45,8 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
     private ProgressDialog progressDialog;
     private EditorPresenter presenter;
     private ImageView ivDate, ivTime;
-
+    private String getId;
+    private SessionManager sessionManager;
     private int id;
     private String tanggalPosyandu, waktuyandu;
     private Menu actionMenu;
@@ -112,6 +115,14 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
         idTempatPosyandu = intent.getIntExtra(ID_JADWAL_POSYANDU, 0);
 
         setDataFromIntentExtra();
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        getId = user.get(sessionManager.NAMA);
+        if (getId.equals("Warga")){
+            getSupportActionBar().setTitle("Detail Jadwal Posyandu");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -119,8 +130,17 @@ public class EditorJadwalPosyanduActivity extends AppCompatActivity implements E
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.editor_jadwalposyandu, menu);
         actionMenu = menu;
-
-        if (id != 0) {
+        if (getId.equals("Warga")) {
+            actionMenu.findItem(R.id.editJadwalPosyandu).setVisible(false);
+            actionMenu.findItem(R.id.deleteJadwalPosyandu).setVisible(false);
+            actionMenu.findItem(R.id.simpanJadwalPosyandu).setVisible(false);
+            actionMenu.findItem(R.id.updateJadwalPosyandu).setVisible(false);
+        }else if (getId.equals("Linma")) {
+            actionMenu.findItem(R.id.editJadwalPosyandu).setVisible(false);
+            actionMenu.findItem(R.id.deleteJadwalPosyandu).setVisible(false);
+            actionMenu.findItem(R.id.simpanJadwalPosyandu).setVisible(false);
+            actionMenu.findItem(R.id.updateJadwalPosyandu).setVisible(false);
+        }else if (id != 0) {
             actionMenu.findItem(R.id.editJadwalPosyandu).setVisible(true);
             actionMenu.findItem(R.id.deleteJadwalPosyandu).setVisible(true);
             actionMenu.findItem(R.id.simpanJadwalPosyandu).setVisible(false);

@@ -42,7 +42,7 @@ public class MainAdapterProfil extends RecyclerView.Adapter<MainAdapterProfil.Re
     @Override
     public void onBindViewHolder(@NonNull MainAdapterProfil.RecyclerViewAdapter holder, int position) {
         Profil profil = profilList.get(position);
-        holder.tv_nik.setText(profil.getNik()+"");
+        holder.tv_nik.setText(profil.getNik());
         holder.tv_nama.setText(profil.getNama());
         holder.tv_tanggallahir.setText(profil.getTanggallahir());
         holder.tv_jeniskelamin.setText(profil.getJeniskelamin());

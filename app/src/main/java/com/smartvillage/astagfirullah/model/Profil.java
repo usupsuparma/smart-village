@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Profil {
 
     @Expose
-    @SerializedName("nik") private int nik;
+    @SerializedName("nik") private String nik;
 
     @Expose
     @SerializedName("nama") private String nama;
@@ -36,11 +36,11 @@ public class Profil {
     @SerializedName("message") private String message;
 
 
-    public int getNik() {
+    public String getNik() {
         return nik;
     }
 
-    public void setNik(int nik) {
+    public void setNik(String nik) {
         this.nik = nik;
     }
 

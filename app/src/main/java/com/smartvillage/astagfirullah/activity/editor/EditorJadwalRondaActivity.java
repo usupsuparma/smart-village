@@ -19,7 +19,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.smartvillage.astagfirullah.R;
+import com.smartvillage.astagfirullah.activity.main.SessionManager;
 import com.smartvillage.astagfirullah.api.ApiInterface;
+
+import java.util.HashMap;
 
 public class EditorJadwalRondaActivity extends AppCompatActivity implements EditorView{
 
@@ -33,7 +36,8 @@ public class EditorJadwalRondaActivity extends AppCompatActivity implements Edit
     private ProgressDialog progressDialog;
     private ApiInterface apiInterface;
     private EditorPresenter presenter;
-
+    private String getId;
+    private SessionManager sessionManager;
     int id;
     private String nik;
     private String namapetugas, jadwalpetugas;
@@ -76,6 +80,14 @@ public class EditorJadwalRondaActivity extends AppCompatActivity implements Edit
 
 
         setDataFromIntentExtra();
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        getId = user.get(sessionManager.NAMA);
+        if (getId.equals("Warga")){
+            getSupportActionBar().setTitle("Detail Jadwal Ronda");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     void initDataSpinnerJadwalRonda() {
@@ -110,8 +122,18 @@ public class EditorJadwalRondaActivity extends AppCompatActivity implements Edit
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.editor_jadwalronda, menu);
         actionMenu = menu;
-
-        if (id != 0){
+        if (getId.equals("Warga")) {
+            actionMenu.findItem(R.id.editJadwalRonda).setVisible(false);
+            actionMenu.findItem(R.id.deleteJadwalRonda).setVisible(false);
+            actionMenu.findItem(R.id.simpanJadwalRonda).setVisible(false);
+            actionMenu.findItem(R.id.updateJadwalRonda).setVisible(false);
+        }
+        else if (getId.equals("Bidan")) {
+            actionMenu.findItem(R.id.editJadwalRonda).setVisible(false);
+            actionMenu.findItem(R.id.deleteJadwalRonda).setVisible(false);
+            actionMenu.findItem(R.id.simpanJadwalRonda).setVisible(false);
+            actionMenu.findItem(R.id.updateJadwalRonda).setVisible(false);
+        }else if (id != 0){
             actionMenu.findItem(R.id.editJadwalRonda).setVisible(true);
             actionMenu.findItem(R.id.deleteJadwalRonda).setVisible(true);
             actionMenu.findItem(R.id.simpanJadwalRonda).setVisible(false);

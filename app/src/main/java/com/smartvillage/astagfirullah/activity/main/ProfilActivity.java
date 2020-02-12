@@ -16,13 +16,15 @@ import com.smartvillage.astagfirullah.model.Profil;
 import com.smartvillage.astagfirullah.model.RiwayatSakit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ProfilActivity extends AppCompatActivity implements MainViewProfil{
 
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
-
+    private SessionManager sessionManager;
+    private String nik, id;
     MainPresenterProfil presenter;
     MainAdapterProfil adapter;
     MainAdapterProfil.ItemClickListener itemClickListener;
@@ -42,7 +44,11 @@ public class ProfilActivity extends AppCompatActivity implements MainViewProfil{
         recyclerView.setAdapter(adapter);
 
         swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
-
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        nik = user.get(sessionManager.NIK);
+        id = user.get(sessionManager.NAMA);
         presenter = new MainPresenterProfil(this);
         presenter.getData();
 

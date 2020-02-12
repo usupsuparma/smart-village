@@ -16,6 +16,7 @@ import com.smartvillage.astagfirullah.R;
 import com.smartvillage.astagfirullah.activity.editor.EditorJadwalPosyanduActivity;
 import com.smartvillage.astagfirullah.model.JadwalPosyandu;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class JadwalPosyanduActivity extends AppCompatActivity implements MainViewJadwalPosyandu, MainAdapterJadwalPosyandu.ItemClickListener {
@@ -26,7 +27,8 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
     private FloatingActionButton addjadwalposyandu;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-
+    private SessionManager sessionManager;
+    private String  id;
     private MainPresenterJadwalPosyandu presenter;
     private MainAdapterJadwalPosyandu adapter;
 
@@ -54,6 +56,17 @@ public class JadwalPosyanduActivity extends AppCompatActivity implements MainVie
         swipeRefreshLayout.setOnRefreshListener(
                 () -> presenter.getData()
         );
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        id = user.get(sessionManager.NAMA);
+        if(id.equals("Admin")){
+            addjadwalposyandu.show();
+        }else if(id.equals("Bidan")){
+            addjadwalposyandu.show();
+        }else{
+            addjadwalposyandu.hide();
+        }
 
     }
 

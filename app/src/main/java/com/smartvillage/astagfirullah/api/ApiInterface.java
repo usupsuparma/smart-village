@@ -19,19 +19,18 @@ public interface ApiInterface {
 //  RIWAYAT SAKIT   ================================================================================
 
     @FormUrlEncoded
-    @POST("get_save_riwayatsakit.php")
+    @POST("api.php?id=get_save_riwayatsakit")
     Call<RiwayatSakit> simpanRiwayatSakit (
             @Field("namapasien") String namapasien,
             @Field("penyakitpasien") String penyakitpasien );
-            //@Field("tanggalsakit") String tanggalsakit );
 
     @FormUrlEncoded
-    @POST("get_data_riwayatsakit.php")
+    @POST("api.php?id=get_data_riwayatsakit")
     Call<List<RiwayatSakit>> getRiwayatSakit(
             @Field("id") String id);
 
     @FormUrlEncoded
-    @POST("get_update_riwayatsakit.php")
+    @POST("api.php?id=get_update_riwayatsakit")
     Call<RiwayatSakit> updateRiwayatSakit(
             @Field("id") int id,
             @Field("namapasien") String namapasien,
@@ -39,48 +38,48 @@ public interface ApiInterface {
             //@Field("tanggalsakit") String tanggalsakit );
 
     @FormUrlEncoded
-    @POST("get_delete_riwayatsakit.php")
+    @POST("api.php?id=get_delete_riwayatsakit")
     Call<RiwayatSakit> deleteRiwayatSakit(
             @Field("id") int id );
 
 //  JADWAL RONDA    ================================================================================
 
     @FormUrlEncoded
-    @POST("get_save_jadwalronda.php")
+    @POST("api.php?id=get_save_jadwalronda")
     Call<JadwalRonda> simpanJadwalRonda (
             @Field("namapetugas") String namapetugas,
             @Field("id_hari") int idHari );
 
-    @GET("get_data_jadwalronda.php")
+    @GET("api.php?id=get_data_jadwalronda")
     Call<List<JadwalRonda>> getJadwalRonda();
 
     @FormUrlEncoded
-    @POST("get_update_jadwalronda.php")
+    @POST("api.php?id=get_update_jadwalronda")
     Call<JadwalRonda> updateJadwalRonda(
             @Field("id") int id,
             @Field("namapetugas") String namapetugas,
             @Field("id_hari") int idHari);
 
     @FormUrlEncoded
-    @POST("get_delete_jadwalronda.php")
+    @POST("api.php?id=get_delete_jadwalronda")
     Call<JadwalRonda> deleteJadwalRonda(
             @Field("id") int id );
 
 //  JADWAL POSYANDU ================================================================================
 
     @FormUrlEncoded
-    @POST("get_save_jadwalposyandu.php")
+    @POST("api.php?id=get_save_jadwalposyandu")
     Call<JadwalPosyandu> simpanJadwalPosyandu(
             @Field("tanggalyandu") String tanggalYandu,
             @Field("waktuyandu") String waktuyandu,
             @Field("idtempatposyandu") int idTempatPosyandu
             );
 
-    @GET("get_data_jadwalposyandu.php")
+    @GET("api.php?id=get_data_jadwalposyandu")
     Call<List<JadwalPosyandu>> getJadwalPosyandu();
 
     @FormUrlEncoded
-    @POST("get_update_jadwalposyandu.php")
+    @POST("api.php?id=get_update_jadwalposyandu")
     Call<JadwalPosyandu> updateJadwalPosyandu(
             @Field("id") int id,
             @Field("tanggal_posyandu") String tanggalPosyandu,
@@ -89,19 +88,19 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("get_delete_jadwalposyandu.php")
+    @POST("api.php?id=get_delete_jadwalposyandu")
     Call<JadwalPosyandu> deleteJadwalPosyandu(
             @Field("id") int id );
 
 //  KEADAAN DARURAT ================================================================================
 
     @FormUrlEncoded
-    @POST("get_save_keadaandarurat.php")
+    @POST("api.php?id=get_save_keadaandarurat")
     Call<KeadaanDarurat> simpanKeadaanDarurat (
     @Field("pesandarurat") String pesandarurat, @Field("jenispesan") String jenisPesan, @Field("getId") String getId );
 
 //  PROFIL =========================================================================================
 
-    @GET("get_data_profil.php")
+    @GET("api.php?id=get_data_profil")
     Call<List<Profil>> getProfil();
 }

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.smartvillage.astagfirullah.api.ApiClient;
 import com.smartvillage.astagfirullah.api.ApiInterface;
 import com.smartvillage.astagfirullah.model.Profil;
+import com.smartvillage.astagfirullah.model.RiwayatSakit;
 
 import java.util.List;
 
@@ -46,4 +47,25 @@ public class MainPresenterProfil {
             }
         });
     }
+//    void getData(String id){
+//        view.showLoading();
+//        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+//        apiInterface.getProfil(id).enqueue(new Callback<List<Profil>>() {
+//            @Override
+//            public void onResponse(Call<List<Profil>> call, Response<List<Profil>> response) {
+//                view.hideLoading();
+//                if (response.isSuccessful()){
+//                    view.onGetResult(response.body());
+//                } else {
+//                    view.onErrorLoading(response.message());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Profil>> call, Throwable t) {
+//                view.hideLoading();
+//                view.onErrorLoading(t.toString());
+//            }
+//        });
+//    }
 }
